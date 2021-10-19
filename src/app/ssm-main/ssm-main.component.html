@@ -1,0 +1,57 @@
+<background-art></background-art>
+<div class="container mt-2">
+    <h1>Secret Santa Family Generator</h1>
+
+    <p>A tool for randomly generating secret santa lists across extended families.</p>
+
+    <div *ngIf="outList.length == 0">
+        <div class="row">
+            <div class="col-lg-10 col-md-8">
+                <ol>
+                    <li>Prevents anyone inside a family being assigned someone from the same family</li>
+                    <li>Randomly selects a different family member each time to start to prevent
+                        people at the end of the list being more likely to get the same pick.</li>
+                </ol>
+            </div>
+        </div>
+
+        <h3 class="mb-0">Families</h3>
+        <div class="row">
+            <div class="col-md-6 col-lg-3" *ngFor="let fam of families">
+                <family-list [family]="fam"></family-list>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-12">
+                <button class="btn btn-primary text-right" (click)="generateList()">Generate List</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="secret-santa-list" *ngIf="outList.length > 0">
+        <ul>
+            <li *ngFor="let item of outList">{{item}}</li>
+        </ul>
+
+        <div class="row mt-4">
+            <div class="col-12">
+                <button class="btn btn-primary text-right mr-1" (click)="outList = []">Back</button>
+                <button class="btn btn-primary text-right" (click)="generateList()">Generate New List</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- DEBUG DISPLAY FOR CHECKING EDITING FAMILIES WORKS
+    <div class="row mt-4 family-output">
+
+        <div class="col-md-4 col-lg-2" *ngFor="let famOut of families">
+            <h6>{{famOut.name}}</h6>
+            <ul>
+                <li *ngFor="let member of famOut.members">{{member}}</li>
+            </ul>
+        </div>
+    </div> -->
+</div>

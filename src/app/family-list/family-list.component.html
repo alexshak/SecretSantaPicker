@@ -1,0 +1,15 @@
+<div class="family-list mt-2">
+    <div class="row">
+        <div class="col-12">
+            <label>Family Name</label>
+            <input type="text" [(ngModel)]="family.name" (ngModelChange)="updateFamily()">
+        </div>
+    </div> 
+    <div class="row">
+        <div class="col-12">
+            <label>Members (comma separated)</label>
+            <textarea [(ngModel)]="membersString" (ngModelChange)="updateFamily()"></textarea>
+        </div>
+    </div>
+
+</div>
