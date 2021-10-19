@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FamiliesService, Family } from '../services/families.service';
-
+import * as _ from 'lodash';
 @Component({
   selector: 'app-ssm-main',
   templateUrl: './ssm-main.component.html',
@@ -9,7 +9,7 @@ import { FamiliesService, Family } from '../services/families.service';
 export class SsmMainComponent implements OnInit {
 
   families: Family[];
-  outList: string[] = [];
+  outList: any[] = [];
   bigList: any = [];
   pickList: any = [];
 
@@ -53,7 +53,7 @@ export class SsmMainComponent implements OnInit {
       }
       else {
         this.bigList = this.bigList.filter((item: any) => item.name + item.group !== person.name + person.group);
-        console.log(bigLength, person);
+        // console.log(bigLength, person);
 
         this.selectPick(person);
       }
@@ -67,7 +67,16 @@ export class SsmMainComponent implements OnInit {
       // console.log('GOT A PICK', person.name + person.group, pick.name);
       this.pickList = this.pickList.filter((item: any) => item.name + item.group !== pick.name + pick.group);
       let assignment = person.name + ' is giving to ' + pick.name;
-      this.outList.push(assignment);
+      
+      let indexCheck = this.outList.map((e: any) => { return e.name }).indexOf(person.group);
+      console.log('INDEXX??', indexCheck, person.group, this.outList )
+      if(indexCheck > -1) { 
+        this.outList[indexCheck].assignments.push(assignment);
+      }
+      else { 
+        this.outList.push({name: person.group, assignments: [assignment]});
+      }
+      this.outList = _.orderBy(this.outList, ['name'],['asc']);
     }
     else {
       console.log('BAD PICK TRYING AGAIN', person.name + person.group, pick.name);

@@ -30,10 +30,15 @@
     </div>
 
 
-    <div class="secret-santa-list" *ngIf="outList.length > 0">
-        <ul>
-            <li *ngFor="let item of outList">{{item}}</li>
-        </ul>
+    <div class="secret-santa-list row" *ngIf="outList.length > 0">
+        
+        <div class="col-lg-4 col-md-6" *ngFor="let group of outList">
+            <h4 class="mb-0">{{group.name}}</h4>
+            <ul>
+                <li *ngFor="let item of group.assignments">{{item}}</li>
+            </ul>
+        </div>
+
 
         <div class="row mt-4">
             <div class="col-12">
