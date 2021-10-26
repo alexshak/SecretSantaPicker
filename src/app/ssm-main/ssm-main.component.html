@@ -6,7 +6,7 @@
 
     <div *ngIf="outList.length == 0">
         <div class="row">
-            <div class="col-lg-10 col-md-8">
+            <div class="col-lg-12 col-md-12">
                 <ol>
                     <li>Prevents anyone inside a family being assigned someone from the same family</li>
                     <li>Randomly selects a different family member each time to start to prevent
@@ -20,23 +20,52 @@
             <div class="col-md-6 col-lg-3" *ngFor="let fam of families">
                 <family-list [family]="fam"></family-list>
             </div>
+            <div class="col-md-6 col-lg-3">
+                <button class="add-btn btn btn-secondary" (click)="famService.addFamily()">
+                    <img class="mb-2 mt-2" src="../../assets/plus.svg" />
+                    <p>Add Family/Group</p>
+                </button>
+            </div>
         </div>
 
-        <div class="row mt-4">
-            <div class="col-12">
-                <button class="btn btn-primary text-right" (click)="generateList()">Generate List</button>
+        <div class="row" *ngIf="failureCheck > 9">
+            <div class="col-12 mt-3">
+                <div class="alert alert-warning fade show" role="alert">
+                    <p><strong>Christmas Crumbles!</strong> The combination of families and members was too much for our
+                        simple secret-santa-selector! This may just have been highly improbable and may fix itself if
+                        you click 'Generate List' at least once more.</p>
+                    <p><strong>If you keep getting this message</strong> you also may not have enough people in one
+                        family to allow a bigger family to have someone to give to. You may need to check your lists
+                        twice and if it still doesn't work switch the <strong>RULES</strong> above to <strong>'Allow
+                            family members to give to each other'</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            <div class="col-lg-2 col-md-3 col-sm-4">
+                <button class="btn btn-primary text-right" [disabled]="!famService.viabilityCheck"
+                    (click)="startGeneration()">Generate List</button>
+            </div>
+            <div class="col-lg-10 col-md-9 col-sm-8">
+                <div class="alert alert-warning fade show" *ngIf="!famService.viabilityCheck" role="alert">
+                    <p><strong>You need more players!</strong> For this to work your biggest family group need at least
+                        as many people in other families to give to. Add a few more people to generate a list to enable
+                        the button.</p>
+                </div>
             </div>
         </div>
     </div>
 
 
-    <div class="secret-santa-list row" *ngIf="outList.length > 0">
-        
-        <div class="col-lg-4 col-md-6" *ngFor="let group of outList">
-            <h4 class="mb-0">{{group.name}}</h4>
-            <ul>
-                <li *ngFor="let item of group.assignments">{{item}}</li>
-            </ul>
+    <div class="container" *ngIf="outList.length > 0">
+        <div class="secret-santa-list row">
+            <div class="col-lg-4 col-md-6" *ngFor="let group of outList">
+                <h4 class="mb-0">{{group.name}}</h4>
+                <ul>
+                    <li *ngFor="let item of group.assignments">{{item}}</li>
+                </ul>
+            </div>
         </div>
 
 

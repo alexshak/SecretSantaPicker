@@ -12,13 +12,28 @@ export class SsmMainComponent implements OnInit {
   outList: any[] = [];
   bigList: any = [];
   pickList: any = [];
+  failureCheck: number = 0;
 
-  constructor(private famService: FamiliesService) {
+  constructor(public famService: FamiliesService) {
 
   }
 
   ngOnInit(): void {
     this.families = this.famService.getFamilies();
+  }
+
+  startGeneration(){ 
+    this.failureCheck = 0;
+    this.generateList();
+  }
+
+  restartGeneration() { 
+    if(this.failureCheck > 9) { 
+      console.log(new Error('We tried sorting your list, but the combination of members and groups is not possible for our process. Please double check ') )
+    }
+    else { 
+      this.generateList();
+    }
   }
 
   generateList() {
@@ -27,13 +42,14 @@ export class SsmMainComponent implements OnInit {
     this.pickList = [];
     this.outList = [];
 
-    let alreadyPicked: string[] = [];
     this.families.forEach(family => {
-      family.members.forEach(member => {
-        let listEntry = { name: member, group: family.name };
-        this.bigList.push(listEntry);
-        this.pickList.push(listEntry);
-      })
+      if(family.members.length > 0) { 
+        family.members.forEach(member => {
+          let listEntry = { name: member, group: family.name };
+          this.bigList.push(listEntry);
+          this.pickList.push(listEntry);
+        })
+      }
     });
 
     let bigLength = this.bigList.length;
@@ -47,7 +63,8 @@ export class SsmMainComponent implements OnInit {
       //Check the remaining options aren't all in the pick's family and if so start over
       let sameCheck = this.pickList.filter((item: any) => item.group !== person.group);
       if (sameCheck.length == 0) {
-        console.log('NO VIABLE REMAINING CHOICES RESTARTING', person.name + person.group, sameCheck);
+        // console.log('NO VIABLE REMAINING CHOICES RESTARTING', person.name + person.group, sameCheck);
+        this.failureCheck += 1;
         this.generateList();
         break;
       }
@@ -55,7 +72,10 @@ export class SsmMainComponent implements OnInit {
         this.bigList = this.bigList.filter((item: any) => item.name + item.group !== person.name + person.group);
         // console.log(bigLength, person);
 
-        this.selectPick(person);
+        let pickingCheck = this.selectPick(person);
+        if(pickingCheck === 'break') {
+          break;
+        }
       }
     }
   }
@@ -69,7 +89,6 @@ export class SsmMainComponent implements OnInit {
       let assignment = person.name + ' is giving to ' + pick.name;
       
       let indexCheck = this.outList.map((e: any) => { return e.name }).indexOf(person.group);
-      console.log('INDEXX??', indexCheck, person.group, this.outList )
       if(indexCheck > -1) { 
         this.outList[indexCheck].assignments.push(assignment);
       }
@@ -77,10 +96,19 @@ export class SsmMainComponent implements OnInit {
         this.outList.push({name: person.group, assignments: [assignment]});
       }
       this.outList = _.orderBy(this.outList, ['name'],['asc']);
+      return null
     }
     else {
-      console.log('BAD PICK TRYING AGAIN', person.name + person.group, pick.name);
-      this.selectPick(person);
+      let sameCheck = this.pickList.filter((item: any) => item.group !== person.group);
+      if (sameCheck.length == 0) {
+        // console.log('SELECT PICK NO VIABLES', person.name + person.group, this.pickList);
+        return 'break';
+      }
+      else { 
+        // console.log('BAD PICK TRYING AGAIN', person.name + person.group, pick.name, this.pickList);
+        this.selectPick(person);
+        return null;
+      }
     }
   }
 

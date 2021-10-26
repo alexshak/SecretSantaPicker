@@ -12,7 +12,7 @@ export class FamilyListComponent implements OnInit {
 
   membersString: string;
 
-  constructor(private famService: FamiliesService) { 
+  constructor(public famService: FamiliesService) { 
 
   }
 

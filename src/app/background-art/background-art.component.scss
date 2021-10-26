@@ -24,6 +24,28 @@ h1 {
 		align-self: center;
 		padding: 3rem 0;
 	}
+
+	
+}
+
+caption { 
+	position:absolute;
+	bottom:20px; 
+	right:20px;
+	font-size:10px;
+	color:grey;
+
+	a { 
+		color:grey;
+		transition:0.3s ease-out;
+		padding:4px;
+		border-radius:3px;
+
+		&:hover { 
+			background:lightgrey;
+			color: blue;
+		}
+	}
 }
 
 .snow {
@@ -59,9 +81,4 @@ h1 {
 	100% {
 		transform: translateY(0);
 	}
-	
-}
-
-#ssm-smoke .cls-41 { 
-	transform:scale(2);
 }
