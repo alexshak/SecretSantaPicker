@@ -27,4 +27,60 @@ ul {
         color:darkred;
         box-shadow: 2px 2px 7px #fff;
     }
+
+    @media (max-width:768px) { 
+        margin-top:16px;
+        height:auto;
+    }
+}
+
+.out-list {  
+    .btn { 
+        margin:16px 12px 0 0 !important;
+    }
+}
+
+.secret-santa-list { 
+    position: relative;
+
+    @media (max-width:768px) { 
+       >div { 
+        padding: 0;
+       } 
+}
+
+    .family-list { 
+        padding:16px;
+        border:1px solid white;
+        border-radius:3px;
+        position:relative;
+
+        h4 { 
+            margin-bottom:16px !important;
+        }
+
+        .copy-btn { 
+            position:absolute;
+            top:16px;
+            right:16px;
+            display:flex;
+            background:none;
+            align-items: center;
+            color:white;
+            border:1px solid white;
+            border-radius:3px;
+            transition: opacity 0.3s ease-out;
+            opacity: 0.6; 
+            padding:6px;
+    
+            &:hover { 
+                opacity:1;
+            }
+        }
+    }
+
+
+
+    
+
 }

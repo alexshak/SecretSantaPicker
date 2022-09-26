@@ -18,11 +18,16 @@ h1 {
 	display: flex;
 	justify-content: center;
 	align-content: center;
+	overflow:hidden;
 	
 	&__content {
 		position: relative;
 		align-self: center;
 		padding: 3rem 0;
+	}
+
+	@media screen and (max-width: 768px) {
+		display:none;
 	}
 
 	
@@ -56,6 +61,7 @@ caption {
 	width: 100%;
 	top: 0;
 	left: 0;
+	overflow:hidden;
 }
 
 .snow .svg {

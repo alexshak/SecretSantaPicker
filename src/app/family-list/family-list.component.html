@@ -3,15 +3,17 @@
         <div class="col-12">
             <label>Family / Group Name</label>
             <input type="text" placeholder="'The Claus'" [(ngModel)]="family.name" (ngModelChange)="updateFamily()">
-            <button *ngIf="family.id > 0" title="Remove family/group" class="remove-btn btn btn-secondary" (click)="famService.removeFamily(family.id)">
+            <button *ngIf="family.id > 0" title="Remove family/group" class="remove-btn btn btn-secondary"
+                (click)="famService.removeFamily(family.id)">
                 <img class="mb-2 mt-2" src="../../assets/plus.svg" />
             </button>
         </div>
-    </div> 
+    </div>
     <div class="row">
         <div class="col-12">
             <label>Members (comma separated)</label>
-            <textarea placeholder="Nicholas, Santafina, Bjorn, Johanna" [(ngModel)]="membersString" (ngModelChange)="updateFamily()"></textarea>
+            <textarea placeholder="Nicholas, Nancy, Bjorn, Brenna" [(ngModel)]="membersString"
+                (ngModelChange)="updateFamily()"></textarea>
         </div>
     </div>
 
