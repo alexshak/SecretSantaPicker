@@ -12,18 +12,18 @@ export class FamilyListComponent implements OnInit {
 
   membersString: string;
 
-  constructor(public famService: FamiliesService) { 
+  constructor(public famService: FamiliesService) {
 
   }
 
   ngOnInit(): void {
-    this.membersString = this.family.members.toString();
+    this.membersString = this.family.members.join(', ');
   }
 
-  updateFamily() { 
+  updateFamily() {
     this.membersString = this.membersString.replace(/,\s*$/, "");
     let membersUpdate = this.membersString.split(",");
-    let famUpdateData: Family = {id: this.family.id, name: this.family.name, members: membersUpdate };
+    let famUpdateData: Family = { id: this.family.id, name: this.family.name, members: membersUpdate };
     this.famService.updateFamily(famUpdateData);
   }
 

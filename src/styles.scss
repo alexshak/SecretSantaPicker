@@ -6,6 +6,7 @@
 body { 
     background: darkred;
     color:white;
+    font-size:16px;
 }
 
 background-art { 
@@ -15,4 +16,10 @@ background-art {
     left:0;
     height:100%;
     width:100%;
+}
+
+.btn-primary, .btn-secondary { 
+    min-width:180px;
+    font-weight:500;
+    font-size:1.2rem;
 }

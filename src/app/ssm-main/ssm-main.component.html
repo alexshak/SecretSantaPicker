@@ -17,10 +17,10 @@
 
         <h3 class="mb-0">Families</h3>
         <div class="row">
-            <div class="col-md-6 col-lg-3" *ngFor="let fam of families">
+            <div class="col-md-6 col-lg-4" *ngFor="let fam of families">
                 <family-list [family]="fam"></family-list>
             </div>
-            <div class="col-md-6 col-lg-3">
+            <div class="col-md-6 col-lg-4">
                 <button class="add-btn btn btn-secondary" (click)="famService.addFamily()">
                     <img class="mb-2 mt-2" src="../../assets/plus.svg" />
                     <p>Add Family/Group</p>
@@ -43,16 +43,18 @@
         </div>
 
         <div class="row mt-2">
-            <div class="col-lg-2 col-md-3 col-sm-4">
-                <button class="btn btn-primary text-right" [disabled]="!famService.viabilityCheck"
-                    (click)="startGeneration()">Generate List</button>
-            </div>
-            <div class="col-lg-10 col-md-9 col-sm-8">
+            <div class="col-12">
                 <div class="alert alert-warning fade show" *ngIf="!famService.viabilityCheck" role="alert">
                     <p><strong>You need more players!</strong> For this to work your biggest family group need at least
                         as many people in other families to give to. Add a few more people to generate a list to enable
                         the button.</p>
                 </div>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-12">
+                <button class="btn btn-primary" [disabled]="!famService.viabilityCheck"
+                    (click)="startGeneration()">Generate List</button>
             </div>
         </div>
     </div>
@@ -71,8 +73,8 @@
 
         <div class="row mt-4">
             <div class="col-12">
-                <button class="btn btn-primary text-right mr-1" (click)="outList = []">Back</button>
-                <button class="btn btn-primary text-right" (click)="generateList()">Generate New List</button>
+                <button class="btn btn-secondary text-center mr-1" (click)="outList = []">Back</button>
+                <button class="btn btn-primary text-center" (click)="generateList()">Generate New List</button>
             </div>
         </div>
     </div>

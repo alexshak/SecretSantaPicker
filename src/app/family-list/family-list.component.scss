@@ -1,10 +1,11 @@
 input, textarea { 
     width:100%;
     display:inline-block;
-    background: rgba(255, 255, 255, 0.6);
-    border: 2px solid rgba(255, 255, 255, 0.7);;
+    background: rgba(255, 255, 255, 0.8);
+    border: 2px solid rgba(255, 255, 255, 1);;
     border-radius:3px;
     padding:6px;
+    font-size:16px;
 }
 
 input { 
@@ -17,7 +18,7 @@ textarea {
 
 label { 
     margin: 10px 0 0;
-    font-size:12px;
+    font-size:16px;
     font-weight:bold;
     text-transform:uppercase;
     opacity:0.7;
@@ -33,6 +34,7 @@ label {
     margin-left:10px;
     position:relative;
     top:-8px;
+    min-width:auto;
 
     &:hover{ 
         img { 
