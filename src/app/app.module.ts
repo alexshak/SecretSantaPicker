@@ -9,6 +9,10 @@ import { SsmMainComponent } from './ssm-main/ssm-main.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BackgroundArtComponent } from './background-art/background-art.component';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ToastrModule } from 'ngx-toastr';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,7 +24,9 @@ import { BackgroundArtComponent } from './background-art/background-art.componen
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
   ],
   providers: [],
   schemas: [

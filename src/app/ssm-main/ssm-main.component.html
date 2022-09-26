@@ -49,11 +49,15 @@
                         as many people in other families to give to. Add a few more people to generate a list to enable
                         the button.</p>
                 </div>
+                <div class="alert alert-warning fade show" *ngIf="!famService.nameCheck" role="alert">
+                    <p>Make sure every family has a name and that they are not the same</p>
+                </div>
             </div>
         </div>
         <div class="row mt-2">
             <div class="col-12">
-                <button class="btn btn-primary" [disabled]="!famService.viabilityCheck"
+                <button class="btn btn-primary gen-button"
+                    [disabled]="!famService.viabilityCheck || !famService.nameCheck"
                     (click)="startGeneration()">Generate List</button>
             </div>
         </div>
@@ -65,7 +69,8 @@
             <div class="col-lg-6 col-md-6" *ngFor="let group of outList">
                 <div class="family-list">
                     <h4 class="mb-0">{{group.name}}</h4>
-                    <button class="copy-btn"><span class="material-icons-outlined">content_copy</span> Copy</button>
+                    <button class="copy-btn" (click)="copyList(group)"><span
+                            class="material-icons-outlined">content_copy</span> Copy</button>
                     <ul>
                         <li *ngFor="let item of group.assignments">{{item}}</li>
                     </ul>
@@ -75,7 +80,7 @@
 
 
         <div class="row mt-4">
-            <div class="col-12">
+            <div class="col-12 out-buttons">
                 <button class="btn btn-secondary text-center mr-1" (click)="outList = []">Back</button>
                 <button class="btn btn-primary text-center" (click)="generateList()">Generate New List</button>
             </div>

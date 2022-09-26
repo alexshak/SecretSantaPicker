@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FamiliesService, Family } from '../services/families.service';
 import * as _ from 'lodash';
+import { ToastrService } from 'ngx-toastr';
+import { Clipboard } from '@angular/cdk/clipboard';
+
 @Component({
   selector: 'app-ssm-main',
   templateUrl: './ssm-main.component.html',
@@ -14,7 +17,7 @@ export class SsmMainComponent implements OnInit {
   pickList: any = [];
   failureCheck: number = 0;
 
-  constructor(public famService: FamiliesService) {
+  constructor(public famService: FamiliesService, private toastr: ToastrService, private clipboard: Clipboard) {
 
   }
 
@@ -22,16 +25,16 @@ export class SsmMainComponent implements OnInit {
     this.families = this.famService.getFamilies();
   }
 
-  startGeneration(){ 
+  startGeneration() {
     this.failureCheck = 0;
     this.generateList();
   }
 
-  restartGeneration() { 
-    if(this.failureCheck > 9) { 
-      console.log(new Error('We tried sorting your list, but the combination of members and groups is not possible for our process. Please double check ') )
+  restartGeneration() {
+    if (this.failureCheck > 9) {
+      console.log(new Error('We tried sorting your list, but the combination of members and groups is not possible for our process. Please double check '))
     }
-    else { 
+    else {
       this.generateList();
     }
   }
@@ -43,7 +46,7 @@ export class SsmMainComponent implements OnInit {
     this.outList = [];
 
     this.families.forEach(family => {
-      if(family.members.length > 0) { 
+      if (family.members.length > 0) {
         family.members.forEach(member => {
           let listEntry = { name: member, group: family.name };
           this.bigList.push(listEntry);
@@ -73,7 +76,7 @@ export class SsmMainComponent implements OnInit {
         // console.log(bigLength, person);
 
         let pickingCheck = this.selectPick(person);
-        if(pickingCheck === 'break') {
+        if (pickingCheck === 'break') {
           break;
         }
       }
@@ -87,15 +90,15 @@ export class SsmMainComponent implements OnInit {
       // console.log('GOT A PICK', person.name + person.group, pick.name);
       this.pickList = this.pickList.filter((item: any) => item.name + item.group !== pick.name + pick.group);
       let assignment = person.name + ' is giving to ' + pick.name;
-      
+
       let indexCheck = this.outList.map((e: any) => { return e.name }).indexOf(person.group);
-      if(indexCheck > -1) { 
+      if (indexCheck > -1) {
         this.outList[indexCheck].assignments.push(assignment);
       }
-      else { 
-        this.outList.push({name: person.group, assignments: [assignment]});
+      else {
+        this.outList.push({ name: person.group, assignments: [assignment] });
       }
-      this.outList = _.orderBy(this.outList, ['name'],['asc']);
+      this.outList = _.orderBy(this.outList, ['name'], ['asc']);
       return null
     }
     else {
@@ -104,12 +107,17 @@ export class SsmMainComponent implements OnInit {
         // console.log('SELECT PICK NO VIABLES', person.name + person.group, this.pickList);
         return 'break';
       }
-      else { 
+      else {
         // console.log('BAD PICK TRYING AGAIN', person.name + person.group, pick.name, this.pickList);
         this.selectPick(person);
         return null;
       }
     }
+  }
+
+  copyList(group: Family) {
+    this.toastr.success('🎅🎅🎅🎅', group.name + ' family has been copied to the clipboard');
+    this.clipboard.copy(group.assignments.join('\n'))
   }
 
 }

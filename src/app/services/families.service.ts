@@ -4,6 +4,7 @@ export interface Family {
   id: number;
   name: string | null;
   members: string[];
+  assignments: string[];
 }
 
 @Injectable({
@@ -15,17 +16,20 @@ export class FamiliesService {
   families: Family[] = [
     {
       id: 0,
-      name: 'Claus',
-      members: ['Nicholas', 'Nancy', 'Bjorn', 'Brenna']
+      name: 'Family 1',
+      members: ['Nicholas', 'Nancy', 'Bjorn', 'Brenna'],
+      assignments: []
     },
     {
       id: 1,
       name: 'Family 2',
-      members: ['John', 'Jane', 'Jeremy', 'Jen']
+      members: ['John', 'Jane', 'Jeremy', 'Jen'],
+      assignments: []
     }
   ];
 
-  viabilityCheck = true;
+  viabilityCheck: Boolean = true;
+  nameCheck: Boolean = true;
 
   constructor() { }
 
@@ -43,13 +47,15 @@ export class FamiliesService {
       this.families[famIndex].members = newFamData.members;
     }
     this.checkFamilies();
+    this.checkNames();
   }
 
   addFamily(): void {
     let newFamily: Family = {
       id: this.families.length,
-      name: null,
-      members: []
+      name: 'Family ' + (this.families.length + 1),
+      members: [],
+      assignments: []
     };
     this.families.push(newFamily);
   }
@@ -68,5 +74,14 @@ export class FamiliesService {
       }
     });
     this.viabilityCheck = longest.length <= totalMembers - longest.length;
+  }
+
+  checkNames() {
+    let names = this.families.map((fam) => {
+      return fam.name;
+    })
+    //check all names are different and not blank
+    this.nameCheck = (new Set(names)).size === names.length && names.every((name) => name && name.length > 0);
+    console.log('CHJROKS', names, names.length, this.nameCheck);
   }
 }

@@ -23,7 +23,7 @@ export class FamilyListComponent implements OnInit {
   updateFamily() {
     this.membersString = this.membersString.replace(/,\s*$/, "");
     let membersUpdate = this.membersString.split(",");
-    let famUpdateData: Family = { id: this.family.id, name: this.family.name, members: membersUpdate };
+    let famUpdateData: Family = { id: this.family.id, name: this.family.name, members: membersUpdate, assignments: [] };
     this.famService.updateFamily(famUpdateData);
   }
 

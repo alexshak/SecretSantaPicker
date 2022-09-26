@@ -11,6 +11,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^14.2.3",
+    "@angular/cdk": "^14.2.2",
     "@angular/common": "^14.2.3",
     "@angular/compiler": "^14.2.3",
     "@angular/core": "^14.2.3",
@@ -25,6 +26,7 @@
     "firebase": "^9.10.0",
     "lodash": "^4.17.21",
     "material-icons": "^1.11.11",
+    "ngx-toastr": "^15.0.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

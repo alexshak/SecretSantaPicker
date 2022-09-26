@@ -8,6 +8,11 @@ ul {
     padding:0 24px;
 }
 
+.alert.alert-warning {
+     
+    p { margin: 0}
+}
+
 .add-btn { 
     margin-top: 36px;
     display: block;
@@ -34,9 +39,19 @@ ul {
     }
 }
 
+.gen-button { 
+    margin-bottom:100px;
+}
+
 .out-list {  
     .btn { 
         margin:16px 12px 0 0 !important;
+    }
+}
+
+.out-buttons { 
+    @media (max-width:768px) {  
+         padding: 0 0 100px 0;
     }
 }
 
@@ -54,6 +69,8 @@ ul {
         border:1px solid white;
         border-radius:3px;
         position:relative;
+        margin-bottom:16px;
+        height: calc(100% - 16px);
 
         h4 { 
             margin-bottom:16px !important;
@@ -70,7 +87,7 @@ ul {
             border:1px solid white;
             border-radius:3px;
             transition: opacity 0.3s ease-out;
-            opacity: 0.6; 
+            opacity: 0.8; 
             padding:6px;
     
             &:hover { 
