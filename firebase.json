@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "public",
+    "public": "dist/secret-santa-maker",
     "ignore": [
       "firebase.json",
       "**/.*",
